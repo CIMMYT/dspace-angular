@@ -4,12 +4,14 @@ import {
   Inject,
   Input,
   OnInit,
+  NgModule,
 } from '@angular/core';
 import {
   TranslateModule,
   TranslateService,
 } from '@ngx-translate/core';
 import { BehaviorSubject } from 'rxjs';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import {
   APP_CONFIG,
   AppConfig,
@@ -38,6 +40,7 @@ import { VarDirective } from '../../../../shared/utils/var.directive';
 @Component({
   selector: 'ds-base-item-page-file-section',
   templateUrl: './file-section.component.html',
+  styleUrls: ['./file-section.component.scss'],
   imports: [
     CommonModule,
     FileSizePipe,
@@ -46,6 +49,7 @@ import { VarDirective } from '../../../../shared/utils/var.directive';
     ThemedLoadingComponent,
     TranslateModule,
     VarDirective,
+    NgbDropdownModule,
   ],
 })
 export class FileSectionComponent implements OnInit {

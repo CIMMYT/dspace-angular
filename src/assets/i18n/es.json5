@@ -11280,4 +11280,6 @@
   "search.filters.filter.agrovoc.label":"Búscar por AGROVOC",
   "search.filters.filter.agrovoc.placeholder":"AGROVOC",
   "item.page.doi":"Identificador DOI", 
+  "search.filters.applied.f.isAuthorOfPublication":"Publicaciones del autor",
+  "item.page.bitstreams.show-files":"Ver descargas"
 }

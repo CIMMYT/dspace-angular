@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { FileSectionComponent as BaseComponent } from '../../../../../../../app/item-page/simple/field-components/file-section/file-section.component';
 import { slideSidebarPadding } from '../../../../../../../app/shared/animations/slide';
@@ -23,6 +24,7 @@ import { VarDirective } from '../../../../../../../app/shared/utils/var.directiv
     ThemedLoadingComponent,
     TranslateModule,
     VarDirective,
+    NgbDropdownModule,
   ],
 })
 export class FileSectionComponent extends BaseComponent {

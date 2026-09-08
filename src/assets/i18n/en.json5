@@ -7457,5 +7457,8 @@
   "search.filters.filter.agrovoc.head":"AGROVOC",
   "search.filters.filter.agrovoc.label":"Search For AGROVOC",
   "search.filters.filter.agrovoc.placeholder":"AGROVOC",
-  "item.page.doi":"DOI identifier", 
+  "item.page.doi":"DOI identifier",
+  "search.filters.applied.f.isAuthorOfPublication":"Publications by the author",
+  
+  "item.page.bitstreams.show-files":"Show Files"
 }

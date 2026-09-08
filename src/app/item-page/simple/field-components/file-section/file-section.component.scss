@@ -1,0 +1,16 @@
+.bitstream-dropdown-menu {
+  max-height: 60vh;
+  overflow-y: auto;
+  min-width: 20rem;
+  max-width: 90vw;
+}
+
+.bitstream-dropdown-item {
+  white-space: normal;      // permite nombres largos en varias líneas
+  cursor: pointer;
+
+  ds-file-download-link a {
+    display: block;
+    text-decoration: none;
+  }
+}

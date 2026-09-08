@@ -2,31 +2,75 @@
   @if (bitstreams?.length > 0) {
     <ds-metadata-field-wrapper [label]="label | translate">
       <div class="file-section">
-        @for (file of bitstreams; track file; let last = $last) {
-          <ds-file-download-link [bitstream]="file" [item]="item">
-          <span>
-            @if (primaryBitstreamId === file.id) {
-              <span class="badge bg-primary">{{ 'item.page.bitstreams.primary' | translate }}</span>
-            }
-            {{ dsoNameService.getName(file) }}
-          </span>
-            <span> ({{(file?.sizeBytes) | dsFileSize }})</span>
-            @if (!last) {
-              <span innerHTML="{{separator}}"></span>
-            }
-          </ds-file-download-link>
+
+        <!-- ========== CASO A: un único fichero -> comportamiento original ========== -->
+        @if (bitstreams.length === 1 && isLastPage) {
+          @for (file of bitstreams; track file.id) {
+            <ds-file-download-link [bitstream]="file" [item]="item">
+              <span>
+                @if (primaryBitstreamId === file.id) {
+                  <span class="badge bg-primary">{{ 'item.page.bitstreams.primary' | translate }}</span>
+                }
+                {{ dsoNameService.getName(file) }}
+              </span>
+              <span> ({{ (file?.sizeBytes) | dsFileSize }})</span>
+            </ds-file-download-link>
+          }
         }
-        @if (isLoading) {
-          <ds-loading message="{{'loading.default' | translate}}" [showMessage]="false"></ds-loading>
-        }
-        @if (!isLastPage) {
-          <div class="mt-1" id="view-more">
-            <button class="bitstream-view-more btn btn-outline-secondary btn-sm" (click)="getNextPage()">{{'item.page.bitstreams.view-more' | translate}}</button>
-          </div>
-        }
-        @if (isLastPage && currentPage !== 1) {
-          <div class="mt-1" id="collapse">
-            <button class="bitstream-collapse btn btn-outline-secondary btn-sm" (click)="currentPage = undefined; getNextPage();">{{'item.page.bitstreams.collapse' | translate}}</button>
+
+        <!-- ========== CASO B: varios ficheros -> menú desplegable ========== -->
+        @else {
+          <div ngbDropdown #filesDropdown="ngbDropdown" [autoClose]="'outside'" class="d-inline-block">
+
+            <button type="button"
+                    id="file-section-dropdown-toggle"
+                    class="btn btn-outline-primary btn-sm bitstream-dropdown-toggle"
+                    ngbDropdownToggle>
+              {{ 'item.page.bitstreams.show-files' | translate }} ({{ bitstreams.length }})
+            </button>
+
+            <div ngbDropdownMenu
+                 aria-labelledby="file-section-dropdown-toggle"
+                 class="bitstream-dropdown-menu">
+
+              @for (file of bitstreams; track file.id) {
+                <div ngbDropdownItem class="bitstream-dropdown-item" (click)="filesDropdown.close()">
+                  <ds-file-download-link [bitstream]="file" [item]="item">
+                    <span>
+                      @if (primaryBitstreamId === file.id) {
+                        <span class="badge bg-primary">{{ 'item.page.bitstreams.primary' | translate }}</span>
+                      }
+                      {{ dsoNameService.getName(file) }}
+                    </span>
+                    <span> ({{ (file?.sizeBytes) | dsFileSize }})</span>
+                  </ds-file-download-link>
+                </div>
+              }
+
+              @if (isLoading) {
+                <div class="px-3 py-1">
+                  <ds-loading message="{{'loading.default' | translate}}" [showMessage]="false"></ds-loading>
+                </div>
+              }
+
+              @if (!isLastPage) {
+                <div class="dropdown-divider"></div>
+                <div class="px-3 py-1" id="view-more">
+                  <button type="button"
+                          class="bitstream-view-more btn btn-outline-secondary btn-sm w-100"
+                          (click)="getNextPage()">{{ 'item.page.bitstreams.view-more' | translate }}</button>
+                </div>
+              }
+
+              @if (isLastPage && currentPage !== 1) {
+                <div class="dropdown-divider"></div>
+                <div class="px-3 py-1" id="collapse">
+                  <button type="button"
+                          class="bitstream-collapse btn btn-outline-secondary btn-sm w-100"
+                          (click)="currentPage = undefined; getNextPage();">{{ 'item.page.bitstreams.collapse' | translate }}</button>
+                </div>
+              }
+            </div>
           </div>
         }
       </div>
